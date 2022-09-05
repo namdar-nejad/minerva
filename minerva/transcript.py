@@ -84,15 +84,5 @@ def scrape(html):
                 courses[-1].grade += ' (%s)' % c[6]
                 just_saw_k = False
                 continue
-            course = Course(
-                subject=c[1].encode('ascii', errors='ignore'),
-                section=c[2].encode('utf-8'),
-                title=c[3].encode('utf-8'),
-                credits=float(c[4]),
-                grade=c[6].encode('utf-8') if c[6] != u'\xa0' else None,
-                average=c[10].encode('utf-8') if c[10] != u'\xa0' else None)
-            courses.append(course)
-            just_saw_k = course.grade == 'K'
-        transcript.append(Term(semester=semester, courses=courses,
-                               gpa=gpa, cum_gpa=cum_gpa))
-    return Transcript(transcript)
+            transcript.append(c)
+    return transcript
